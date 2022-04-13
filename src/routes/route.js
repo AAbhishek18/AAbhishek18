@@ -7,17 +7,21 @@ const BookController= require("../controllers/bookController")
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
+// router.post("/createUser", UserController.createUser  )
+// router.get("/getUsersData", UserController.getUsersData)
 
-router.post("/createUser", UserController.createUser  )
-
-router.get("/getUsersData", UserController.getUsersData)
-
+// API for creating books in db
 router.post("/createBook", BookController.createBook  )
 
-router.get("/getBooksData", BookController.getBooksData)
+// API for creating author in db
+router.post("/createAuthor",BookController.createAutor)
 
-router.post("/updateBooks", BookController.updateBooks)
-router.post("/deleteBooks", BookController.deleteBooks)
+router.get("/getBooksByAuthorName", BookController.getBooksByAuthorName)
+
+router.post("/updateBooksPrice", BookController.updateBooksPrice)
+
+router.get("/authorName",BookController.authorName)
+//router.post("/deleteBooks", BookController.deleteBooks)
 
 //MOMENT JS
 const moment = require('moment');
