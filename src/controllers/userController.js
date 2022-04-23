@@ -16,7 +16,7 @@ const loginUser = async function (req, res) {
   let password = req.body.password;
 
   let user = await userModel.findOne({ emailId: userName, password: password });
-  console.log(user)
+ // console.log(user)
   if (!user)
     return res.send({
       status: false,
@@ -50,7 +50,7 @@ const getUserData = async function (req, res) {
   //If no token is present in the request header return error
   if (!token) return res.send({ status: false, msg: "token must be present" });
 
-  console.log(token);
+//  console.log(token);
   
   // If a token is present then decode the token with verify function
   // verify takes two inputs:
@@ -58,6 +58,7 @@ const getUserData = async function (req, res) {
   // Input 2 is the same secret with which the token was generated
   // Check the value of the decoded token yourself
   let decodedToken = jwt.verify(token, "functionup-thorium");
+  console.log(decodedToken)
   if (!decodedToken){
     return res.send({ status: false, msg: "token is invalid" });
   }
@@ -96,11 +97,12 @@ const updateUser = async function (req, res) {
   }
 // updating users
   let userData = req.body;
-  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
+  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData,{new:true});
   res.send({ status: updatedUser, data: updatedUser });
 };
 // 5th peoblem
-const getDeleted= async function(req,res){
+const deletedUser= async function(req,res){
+  // is token comming in [x-auth-geaders] or not
   let token=req.headers["ax-Auth-token"];
   if(!token) token=req.headers["ax-auth-token"];
 
@@ -108,6 +110,7 @@ const getDeleted= async function(req,res){
   {
     return res.send({status:false,msg:"Token must be present"})
   }
+  // token validation
   let decodedToken=jwt.verify(token,"functionup-thorium");
   if(!decodedToken)
   {
@@ -131,4 +134,4 @@ module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
-module.exports.getDeleted=getDeleted
+module.exports.deletedUser=deletedUser
