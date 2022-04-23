@@ -72,6 +72,16 @@ const updateUser = async function (req, res) {
 // Check if the token present is a valid token
 // Return a different error message in both these cases
 
+// let token = req.headers['x-Auth-Token'] || req.headers['x-auth-token']
+    
+// if(!token){
+//     res.send({status:false,msg:"token must be present"})
+// }
+// let decodedToken = jwt.verify(token,"functionup-thorium")
+// if(!decodedToken){
+//     res.send({status:false,msg:"token is invalid"})
+// }
+
   let userId = req.params.userId;
   let user = await userModel.findById(userId);
   //Return an error if no user with the given id exists in the db
@@ -80,7 +90,7 @@ const updateUser = async function (req, res) {
   }
 
   let userData = req.body;
-  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
+  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData,{new:true});
   res.send({ status: updatedUser, data: updatedUser });
 };
 
