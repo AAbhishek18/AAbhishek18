@@ -1,5 +1,5 @@
 const req = require("express/lib/request")
-const UserModel= require("../models/userModel")
+const userModel= require("../models/userModel")
 
 const basicCode= async function(req, res) {
     let tokenDataInHeaders= req.headers.token
@@ -50,31 +50,18 @@ module.exports.basicCode = basicCode
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 2 PROBLEM
 const createUser= async function (req, res) {
-    let data= req.body
-    let savedData= await UserModel.create(data)
-    res.send({msg: savedData})
+    let user= req.body
+   let userCreated= await userModel.create(user)
+    res.send({msg: userCreated})
 }
 
 const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
+    let allUsers= await userModel.find()
     res.send({msg: allUsers})
 }
 
 module.exports.createUser= createUser
 module.exports.getUsersData= getUsersData
-module.exports.basicCode= basicCode
+// module.exports.basicCode= basicCode
