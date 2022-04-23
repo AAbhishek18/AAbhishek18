@@ -1,4 +1,4 @@
-
+const jwt =require("jsonwebtoken")
 const deleteMW=function(req,res, next){
 
     // is token comming in [x-auth-geaders] or not
@@ -18,6 +18,7 @@ const deleteMW=function(req,res, next){
   next()
 }
 const getUseDateMW=function(req,res,next){
+
     let token = req.headers["x-Auth-token"];
   // console.log(token)
   if (!token) token = req.headers["x-auth-token"];
@@ -38,6 +39,7 @@ const getUseDateMW=function(req,res,next){
   if (!decodedToken){
     return res.send({ status: false, msg: "token is invalid" });
   }
+  next()
 
 }
 module.exports.deleteMW=deleteMW
