@@ -16,7 +16,7 @@ let uploadFile= async ( file) =>{
      var uploadParams= {
          ACL: "public-read",
          Bucket: "classroom-training-bucket",  //HERE
-         Key: "soumen/" + file.originalname, //HERE 
+         Key: "abc/" + file.originalname, //HERE 
          Body: file.buffer
      }
  
@@ -115,8 +115,8 @@ const createBook = async function (req, res) {
         if(files && files.length>0){
             //upload to s3 and get the uploaded link
             // res.send the link back to frontend/postman
-            let uploadedFileURL= await uploadFile( files[0] )
-            res.status(201).send({msg: "file uploaded succesfully", data: uploadedFileURL})
+            var uploadedFileURL= await uploadFile( files[0] )
+            //res.status(201).send({msg: "file uploaded succesfully", data: uploadedFileURL})
         }
         else{
             res.status(400).send({ msg: "No file found" })
@@ -125,11 +125,12 @@ const createBook = async function (req, res) {
     data.bookCover=uploadedFileURL
         // creating the documents of book collection
         let books = await bookModel.create(data)
-
+        console.log(data)
         res.status(201).send({ status: true, message: "success", data: books })
 
 
     }
+  
     catch (err) {
         res.status(500).send({ Status: false, msg: "Error", error: err.message })
     }

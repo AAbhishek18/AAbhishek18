@@ -14,7 +14,7 @@ router.post("/login",userController.login)
 
 //**********************************Book API*********************************************** */
 //book creation
-router.post("/books",auth.authentication,auth.authorization,bookController.createBook)
+router.post("/books",/*auth.authentication,auth.authorization,*/bookController.createBook)
 
 //get books
 router.get("/books",auth.authentication,bookController.getBooks)
