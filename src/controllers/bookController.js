@@ -1,8 +1,9 @@
 const bookModel = require("../models/bookModel")
 const userModel = require("../models/userModel")
 const reviewModel = require("../models/reviewModel")
+
 const aws= require("aws-sdk")
-//const res = require("express/lib/response")
+
 aws.config.update({
     accessKeyId: "AKIAY3L35MCRUJ6WPO6J",
     secretAccessKey: "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",
@@ -50,12 +51,12 @@ const createBook = async function (req, res) {
 
 
 
-        //Check if excerpt present in a body or not
+        
         if (!data.excerpt) {
             return res.status(400).send({ status: false, message: "excerpt is required" })
         }
 
-        //Check if userId present in a body or not
+        
         if (!data.userId) {
             return res.status(400).send({ status: false, message: "userId is required" })
         }
@@ -63,28 +64,28 @@ const createBook = async function (req, res) {
         if (data.userId.length !== 24) {
             return res.status(400).send({ status: false, message: "Invalid User ID" })
         }
-        //Check if ISBN present in a body or not
+        
         if (!data.ISBN) {
             return res.status(400).send({ status: false, message: "ISBN is required" })
         }
 
-        //validating ISBN Number (Format ==> 912-9856321879)
+        //validating ISBN Number (Format 912-9856321879)
 
         let isValidIsbn = /^[0-9]{3}[-]{1}[0-9]{10}$/
         if (!isValidIsbn.test(data.ISBN)) {
             return res.status(400).send({ status: false, message: "ISBN Number is not in a valid format (eg :- 912-9856321879) " })
         }
-        //Check if Category  present in a body or not
+        
         if (!data.category) {
             return res.status(400).send({ status: false, message: "category is required" })
         }
 
-        //Check if subcategory present in a body or not
+       
         if (!data.subcategory) {
             return res.status(400).send({ status: false, message: "subcategory is required" })
         }
 
-        //Check if realeased Date is present in a body or not
+        
 
         if (!data.releasedAt) {
             return res.status(400).send({ status: false, message: "released Date is required" })
@@ -93,7 +94,7 @@ const createBook = async function (req, res) {
         if (!isValidDateFormat.test(data.releasedAt)) {
             return res.status(400).send({ status: false, message: "Format of data Should be in YYYY-MM-DD" })
         }
-        //Checking the uniqueness of title
+        
         let checkTitle = await bookModel.findOne({ title: data.title })
         if (checkTitle) {
             return res.status(400).send({ status: false, message: "Title is already present" })
